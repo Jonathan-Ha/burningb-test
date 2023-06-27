@@ -1,0 +1,13 @@
+.blockLayout {
+    background: #efefef;
+    overflow-x: auto;
+
+    :global {
+        .ant-layout-content {
+            width: 1440px;
+            margin: 0 auto;
+            padding: 0 !important;
+            min-height: auto;
+        }
+    }
+}

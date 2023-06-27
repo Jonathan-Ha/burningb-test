@@ -1,0 +1,87 @@
+.blockHeader {
+    display: flex;
+    align-items: center;
+    width: 1440px;
+    margin: 0 auto;
+
+    .logo {
+        width: 200px;
+        margin-right: 0.5rem;
+
+        .slogan {
+            text-transform: uppercase;
+            color: #ffffff;
+            font-weight: bold;
+        }
+    }
+
+    .search {
+        width: 100%;
+        margin-right: 0.5rem;
+
+        :global {
+            .ant-input-search {
+                .ant-input-wrapper {
+                    .ant-input-group-addon {
+                        border: 3px solid #ffffff;
+
+                        button {
+                            height: 33px;
+                            background-image: linear-gradient(to bottom, #f40009, #f61307, #f81f06, #fa2804, #fc2f02, #fd3b0b, #fe4614, #ff4f1b, #ff5d29, #ff6937, #ff7443, #ff7f50);
+                            span {
+                                display: flex;
+                                align-items: center;
+                                svg {
+                                    margin-right: 5px;
+                                    font-size: 20px;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .hashtag {
+            margin-top: 0.5rem;
+
+            a {
+                color: #ffffff;
+                margin-right: 10px;
+                text-transform: capitalize;
+            }
+        }
+    }
+
+    .account {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        width: 300px;
+        padding: 5px;
+        cursor: pointer;
+        margin-left: 1rem;
+
+        &:hover {
+            border: 1px solid #ccc;
+        }
+
+        .icon {
+            display: flex;
+            font-size: 2rem;
+            color: #ffffff;
+        }
+
+        .info {
+            display: flex;
+            flex-direction: column;
+            color: #ffffff;
+            margin-left: 0.5rem;
+            font-size: 13px;
+
+            .info-sd {
+                display: flex;
+            }
+        }
+    }
+}
