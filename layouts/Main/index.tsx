@@ -3,7 +3,7 @@ import {Layout} from "antd";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import Head from 'next/head';
-import styles from "./styles.module.scss"
+import styles from "./styles.module.scss";
 
 export interface Props extends PropsWithChildren {
     children: any

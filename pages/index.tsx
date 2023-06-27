@@ -2,24 +2,32 @@ import React, {useCallback, useEffect, useState} from "react";
 import {GetServerSidePropsContext} from "next";
 import ProductSuggestUI from "@/components/Interfaces/ProductSuggestUI";
 import * as MDLProduct from "@/models/Product";
-import styles from './styles.module.scss'
+import styles from './styles.module.scss';
 
 export interface Props {
 }
 
 export function Home(props: Props) {
     const [loading, setLoading] = useState<boolean>(false);
-    const [dataProduct, setDataProduct] = useState<any>(undefined);
-    const [totalRdProduct, setTotalRdProduct] = useState(0);
+    const [dataProduct, setDataProduct] = useState<any>([]);
+    const [totalRdProduct, setTotalRdProduct] = useState<any>(0);
+    const [skipProduct, setSkipProduct] = useState<any>(0);
+    const [limitProduct, setLimitProduct] = useState<any>(0);
 
-    const hdlListProduct = useCallback((trigger = false) => {
+    const hdlListProduct = useCallback((skip?: number, trigger = false) => {
+        const reqFt = {
+            skip: skip
+        }
         setLoading(true);
-        MDLProduct.listPaging(null).then(ft => {
-            console.log(ft);
+        MDLProduct.listPaging(reqFt).then(ft => {
             const outDtProduct = ft.data.products;
             const total = ft.data.total;
+            const skip = ft.data.skip;
+            const limit = ft.data.limit;
             setDataProduct(outDtProduct);
             setTotalRdProduct(total);
+            setSkipProduct(skip);
+            setLimitProduct(limit);
             setLoading(false);
         }).catch(error => {
             setLoading(false);
@@ -31,6 +39,13 @@ export function Home(props: Props) {
         hdlListProduct();
     }, [hdlListProduct]);
 
+    const getMoreDataProduct = () => {
+        let next = skipProduct + limitProduct;
+        if (next < totalRdProduct) {
+            hdlListProduct(next);
+        }
+    }
+
     return (
         <>
             <div className={styles["blockHomePage"]}>
@@ -38,7 +53,10 @@ export function Home(props: Props) {
                     <div className={styles["wrapHeader"]}>
                         <h2 className={styles["h2Title"]}>Suggestion</h2>
                     </div>
-                    <ProductSuggestUI loading={loading} dataProduct={dataProduct}/>
+                    <ProductSuggestUI getMoreDataProduct={getMoreDataProduct}
+                                      loading={loading}
+                                      totalRdProduct={totalRdProduct}
+                                      dataProduct={dataProduct}/>
                 </section>
             </div>
         </>

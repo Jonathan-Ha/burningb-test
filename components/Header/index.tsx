@@ -1,10 +1,10 @@
-import React from 'react'
+import React from 'react';
 import Image from "next/image";
 import {Input, Layout} from 'antd';
 import {BiSearchAlt} from "react-icons/bi";
 import {FaRegUser} from "react-icons/fa";
 import Link from 'next/link';
-import styles from "./styles.module.scss"
+import styles from "./styles.module.scss";
 
 export interface Props {
 }

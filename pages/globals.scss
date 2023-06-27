@@ -119,10 +119,11 @@ a {
     line-height: unset;
     background-image: linear-gradient(to bottom, #f40009, #f61307, #f81f06, #fa2804, #fc2f02, #fd3b0b, #fe4614, #ff4f1b, #ff5d29, #ff6937, #ff7443, #ff7f50);
     box-shadow: rgba(0, 0, 0, 0.12) 0 1px 3px, rgba(0, 0, 0, 0.24) 0 2px 2px;
+    padding-inline: unset;
 
     @media screen and (max-width: 1440px) {
         width: 1440px;
-        padding-inline: 20px;
+        padding-inline: 22px;
     }
 }
 
