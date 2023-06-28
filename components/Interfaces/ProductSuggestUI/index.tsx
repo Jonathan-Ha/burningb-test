@@ -5,28 +5,30 @@ import {FaStar} from "react-icons/fa";
 import InfiniteScroll from "react-infinite-scroll-component";
 import SkeletonTypeA from "@/components/SkeletonTypeA";
 import styles from "./styles.module.scss";
+import {Empty} from "antd";
 
 export interface Props {
     loading?: boolean
-    totalRdProduct?: number
-    getMoreDataProduct: (values: any) => void
-    dataProduct?: [{
-        title?: string
-        thumbnail?: string
-        rating?: number
-        description?: string
-        price?: number
-    }]
+    skipProduct: number
+    limitProduct: number
+    totalRdProduct: number
+    getMoreDataProduct: () => void
+    dataProduct: any
 }
 
 export const WrapResultMovie = (props: Props) => {
-    const {loading, totalRdProduct, dataProduct, getMoreDataProduct} = props;
+    const {totalRdProduct, loading, skipProduct, limitProduct, dataProduct, getMoreDataProduct} = props;
     const [dataProductInit, setDataProductInit] = useState<any>([]);
 
     useEffect(() => {
-        let temp = [...dataProductInit, ...dataProduct]
-        setDataProductInit(temp);
-    }, [dataProduct]);
+        if (limitProduct && dataProduct.length && (skipProduct + limitProduct !== dataProductInit.length)) {
+            const temp = [...dataProductInit, ...dataProduct]
+            setDataProductInit(temp);
+        }
+        if (!limitProduct && !dataProduct.length && dataProductInit.length) {
+            setDataProductInit([])
+        }
+    }, [dataProduct, dataProductInit, skipProduct, limitProduct]);
 
     const yieldDataProduct = useMemo(() => {
         if (dataProductInit && dataProductInit.length) {
@@ -43,7 +45,7 @@ export const WrapResultMovie = (props: Props) => {
                 </div>)
             });
         }
-    }, [dataProductInit, loading]);
+    }, [dataProductInit]);
 
     return (
         <>
@@ -52,8 +54,8 @@ export const WrapResultMovie = (props: Props) => {
                 dataLength={dataProductInit ? dataProductInit.length : 0}
                 next={getMoreDataProduct}
                 hasMore={true}
-                loader={setDataProductInit && setDataProductInit.length < totalRdProduct ?
-                    "" : <SkeletonTypeA classDesc={styles["desc"]} classWrapItem={styles["wrapItem"]}
+                loader={!loading || (setDataProductInit && setDataProductInit.length < totalRdProduct) ?
+                    <Empty description={false}/> : <SkeletonTypeA classDesc={styles["desc"]} classWrapItem={styles["wrapItem"]}
                                         quantity={30}/>}
             >
                 {yieldDataProduct}

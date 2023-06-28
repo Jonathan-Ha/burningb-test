@@ -9,3 +9,11 @@ export const listPaging = (params: any) => {
         })
     });
 }
+
+export const search = (params: any) => {
+    return new Promise((resolve, reject) => {
+        FetchGetHeader(`${API_URL}/products/search`, params, data => {
+            yieldPromiseDataModel(data, resolve, reject);
+        })
+    });
+}
